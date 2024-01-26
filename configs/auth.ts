@@ -6,13 +6,15 @@ import { prisma } from "./prisma";
 import { resend } from "@/lib/email";
 import MagicLinkEmail from "@/lib/magic-link-email";
 import { siteConfig } from "./site";
+import { redirect } from 'next/navigation';
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+ 
   session: {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/login",
+    signIn: "/",
   },
   providers: [
     GoogleProvider({
@@ -21,6 +23,8 @@ export const authOptions: NextAuthOptions = {
     }),
     EmailProvider({
       sendVerificationRequest: async ({ identifier, url, provider }) => {
+        console.log("identifier===>", identifier); 
+        console.log("url===>", url); 
         const user = await prisma.user.findUnique({
           where: {
             email: identifier,
@@ -31,9 +35,11 @@ export const authOptions: NextAuthOptions = {
           },
         });
         const userVerified = user?.emailVerified ? true : false;
+        console.log("userVerified===>", userVerified);
         const authSubject = userVerified
           ? `Sign-in link for ${siteConfig.name}`
           : "Activate your account";
+          console.log("authSubject===>", authSubject);
         try {
           const result = await resend.emails.send({
             from: "onboarding@resend.dev",
@@ -52,6 +58,7 @@ export const authOptions: NextAuthOptions = {
               "X-Entity-Ref-ID": new Date().getTime() + "",
             },
           });
+          
           console.log("result===>", result);
         } catch (error) {
           console.log(error);

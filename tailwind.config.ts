@@ -10,11 +10,12 @@ const config = {
 	],
   prefix: "",
   theme: {
+
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "1xl": "1400px",
       },
     },
     extend: {
@@ -74,7 +75,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animated")],
 } satisfies Config
 
 export default config
