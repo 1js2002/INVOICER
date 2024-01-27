@@ -23,9 +23,10 @@ export const FormInput = ({
   placeholder,
   ...props
 }: FormInputProps) => {
+
   const { control } = useFormContext();
   return (
-    <FormField
+    <FormField  
       control={control}
       name={name}
       render={({ field }) => (
@@ -38,7 +39,7 @@ export const FormInput = ({
             <Input
               {...field}
               placeholder={placeholder}
-              className="w-full  lg:w-[23rem] md:text-md text-sm"
+              className=" lg:w-[23rem] md:w-[16rem] w-[10rem] md:text-md text-sm"
               {...props}
             />
           </FormControl>

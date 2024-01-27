@@ -1,3 +1,4 @@
+import { InvoiceSchema, ItemSchema } from "@/schemas";
 export type SiteConfig = {
     name: string;
     description: string;
@@ -7,6 +8,11 @@ export type SiteConfig = {
         github: string;
     };
 }
+export type InvoiceType = z.infer<typeof InvoiceSchema>;
+export type ItemType = z.infer<typeof ItemSchema>;
+export type FormType = UseFormReturn<InvoiceType>;
+export type NameType = FieldPath<InvoiceType>;
+export type NameType = FieldPath<InvoiceType>;
 
 export type NavItem = {
     title: string
@@ -19,5 +25,4 @@ export type MainNavItem = NavItem
 export type NavConfig = {
     mainNav: MainNavItem[]
 }
-import { InvoiceSchema } from "@/schemas";
 export type InvoiceType = z.infer<typeof InvoiceSchema>;

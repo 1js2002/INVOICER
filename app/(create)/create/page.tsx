@@ -3,9 +3,8 @@ import React from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, FormProvider, useFormContext, Form } from "react-hook-form";
 import { DatePickerForm } from "@/components/DatePickerForm";
-import { FormInput } from "@/components/ui/forms/form-input";
 
 import {
   Table,
@@ -16,154 +15,49 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import BillToFrom from "@/components/layout/bill-to-from";
+import DatePickerFormField from "@/components/ui/forms/date-picker-form";
+import { FormInput } from "@/components/ui/forms/form-input";
 
 const page = () => {
   const methods = useForm();
 
   return (
     <FormProvider {...methods}>
-      <form className="container mx-auto flex md:flex-row flex-col w-full min-h-screen py-6  ">
-        <Card className=" container flex flex-col md:w-full ">
-          <div className="py-7">
-            <div className="flex flex-row items center justify-between">
-              <div>
-                Current Date:{" "}
-                <span className="current-date">
-                  {new Date().toLocaleDateString("en-US")}
-                </span>
-              </div>
-              <div></div>
+      <form className="container mx-auto flex lg:flex-row flex-col w-full min-h-screen py-6 gap-4  ">
+        <Card className=" container flex flex-col w-3/4 min-w-[27rem] ">
+          <div className="py-7 flex w-full justify-between items-center ">
+            <div className="flex flex-col w-2/3 items-start flex-wrap gap-3 ">
+              <DatePickerFormField
+                name="details.InvoiceDate"
+                label="Issue Date"
+              />
+              <DatePickerFormField name="details.dueDate" label="Due Date" />
+            </div>
+            <div  className="w-1/4 flex  ">
 
-              <div>invocieNumber</div>
+            <FormInput
+              name="details.invoiceNumber"
+              placeholder="Invoice Number"
+             className="w-24 flex items-end"
+            />
             </div>
           </div>
 
           <div className=" ">
-            <Table>
-              <TableCaption></TableCaption>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Bill To:</TableHead>
-                  <TableHead>Bill From:</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    <FormInput
-                      name="sender.name"
-                      placeholder="receiver name?"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormInput name="receiver.name" placeholder="Your name" />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    <FormInput
-                      name="receiver.email"
-                      placeholder="receiver email"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormInput name="sender.email" placeholder="Your email" />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    <FormInput
-                      name="receiver.address"
-                      placeholder="receiver address"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormInput
-                      name="sender.address"
-                      placeholder="Your address"
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    <FormInput
-                      name="receiver.city"
-                      placeholder="receiver city"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormInput name="sender.city" placeholder="Your city" />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    <FormInput
-                      name="receiver.country"
-                      placeholder="receiver country"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormInput
-                      name="sender.country"
-                      placeholder="Your country"
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    <FormInput
-                      name="receiver.zipCode"
-                      placeholder="receiver zipCode"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormInput
-                      name="sender.zipCode"
-                      placeholder="Your zipCode"
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    <FormInput
-                      name="receiver.phone"
-                      placeholder="receiver Phone number"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <FormInput
-                      name="sender.phone"
-                      placeholder="Your phone number"
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            <BillToFrom />
           </div>
           <div>{/* <InvoiceItems /> */}</div>
           <div>{/* <InvoiceTotal /> */}</div>
           <div>{/* <InoviceNotes /> */}</div>
         </Card>
-        <div className="container felx-col  md:w-[600px] py-7">
-          <Card>
-            <button className={cn(buttonVariants({ variant: "default" }))}>
-              Review Invoice
-            </button>
-            <div>{/* <InvoiceCurrency /> */}</div>
-          </Card>
-        </div>
+      
+        <Card className="container felx-col py-7  w-1/3">
+          <button className={cn(buttonVariants({ variant: "default" }))}>
+            Review Invoice
+          </button>
+          <div>{/* <InvoiceCurrency /> */}</div>
+        </Card>
       </form>
     </FormProvider>
   );
