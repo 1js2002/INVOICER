@@ -51,7 +51,7 @@ const DatePickerFormField = ({ name, label }: DatePickerFormFieldProps) => {
                 name={name}
                 render={({ field }) => (
                     <FormItem>
-                        <div className="flex justify-between gap-5 items-center text-sm  ">
+                        <div className="flex justify-between gap-3 items-center text-sm  ">
                             <div className="">
                                 <FormLabel>{label}:</FormLabel>
                             </div>
@@ -65,22 +65,18 @@ const DatePickerFormField = ({ name, label }: DatePickerFormFieldProps) => {
                                             <Button
                                                 variant={"outline"}
                                                 className={cn(
-                                                    "lg:w-[10rem] w-[8rem] text-xs md:text-md",
-                                                    !field.value &&
-                                                        "text-muted-foreground"
+                                                    "lg:w-[10rem] w-[3.2rem] ",
+                                                    !field.value && "text-muted-foreground"
                                                 )}
                                             >
-                                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                                {field.value ? (
-                                                    new Date(
-                                                        field.value
-                                                    ).toLocaleDateString(
-                                                        "en-US",
-                                                        DATE_OPTIONS
-                                                    )
-                                                ) : (
-                                                    <span>Pick a date</span>
-                                                )}
+                                                <CalendarIcon className="lg:mr-2 lg:h-4 lg:w-4 " />
+                                                <span className="hidden lg:block ">
+                                                    {field.value ? (
+                                                        new Date(field.value).toLocaleDateString("en-US", DATE_OPTIONS)
+                                                    ) : (
+                                                        <span>Pick a date</span>
+                                                    )}
+                                                </span>
                                             </Button>
                                         </FormControl>
                                     </PopoverTrigger>
